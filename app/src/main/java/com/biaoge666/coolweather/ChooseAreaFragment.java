@@ -49,7 +49,6 @@ public class ChooseAreaFragment extends Fragment {
     private List<Country> countryList;
     private  Province selectProvince;
     private City selectCity;
-    private Country selectCountry;
     private int currentLevel;
 
     @Nullable
@@ -112,7 +111,7 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCities(){
         titleText.setText(selectProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
-        cityList=DataSupport.where("province=?",String.valueOf(selectProvince.getId())).find(City.class);
+        cityList=DataSupport.where("provinceid=?",String.valueOf(selectProvince.getId())).find(City.class);
         if(cityList.size()>0){
             dataList.clear();
             for(City city:cityList){
@@ -143,7 +142,7 @@ public class ChooseAreaFragment extends Fragment {
             int provinceCode=selectProvince.getProvinceCode();
             int cityCode=selectCity.getCityCode();
             String address="http://guolin.tech/api/china/"+provinceCode+"/"+cityCode;
-            queryFromServer(address,"country");
+            queryFromServer(address,"county");
         }
     }
 
@@ -169,7 +168,7 @@ public class ChooseAreaFragment extends Fragment {
                     result= Utility.handleProvinceResponse(responseText);
                 }else if("city".equals(type)){
                     result=Utility.handleCityResponse(responseText,selectProvince.getId());
-                }else if ("country".equals(type)){
+                }else if ("county".equals(type)){
                     result=Utility.handleCountryResponse(responseText,selectCity.getId());
                 }
                 if(result){
@@ -181,7 +180,7 @@ public class ChooseAreaFragment extends Fragment {
                                 queryProvinces();
                             }else if ("city".equals(type)){
                                 queryCities();
-                            }else if ("country".equals(type)){
+                            }else if ("county".equals(type)){
                                 queryCountries();
                             }
                         }
