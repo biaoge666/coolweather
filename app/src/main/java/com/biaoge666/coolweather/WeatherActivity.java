@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.biaoge666.coolweather.gson.Forecast;
 import com.biaoge666.coolweather.gson.Weather;
+import com.biaoge666.coolweather.service.AutoUpdateService;
 import com.biaoge666.coolweather.util.HttpUtil;
 import com.biaoge666.coolweather.util.Utility;
 import com.squareup.picasso.Picasso;
@@ -213,6 +214,9 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
+
     }
 
 }
